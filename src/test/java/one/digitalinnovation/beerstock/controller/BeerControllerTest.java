@@ -169,7 +169,7 @@ public class BeerControllerTest {
 
     @Test
     void whenDELETEIsCalledWithInvalidIdThenNotFoundStatusIsReturned() throws Exception {
-        //when
+        //when - Primeiro lançar a exceção já que não retorna nada
         doThrow(BeerNotFoundException.class).when(beerService).deleteById(INVALID_BEER_ID);
 
         // then

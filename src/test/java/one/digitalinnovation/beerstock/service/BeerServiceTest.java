@@ -130,6 +130,7 @@ public class BeerServiceTest {
         assertThat(foundListBeersDTO.get(0), is(equalTo(expectedFoundBeerDTO)));
     }
 
+    //Validando se a lista está vazia
     @Test
     void whenListBeerIsCalledThenReturnAnEmptyListOfBeers() {
         //when
@@ -154,6 +155,7 @@ public class BeerServiceTest {
         // then
         beerService.deleteById(expectedDeletedBeerDTO.getId());
 
+        //Método que chama um certo número de vezes para realizar busca e exclusão
         verify(beerRepository, times(1)).findById(expectedDeletedBeerDTO.getId());
         verify(beerRepository, times(1)).deleteById(expectedDeletedBeerDTO.getId());
     }
