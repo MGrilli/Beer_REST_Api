@@ -161,6 +161,7 @@ public class BeerServiceTest {
     }
 
     @Test
+    //Quando incremento é chamado, incrementar cerveja no estoque
     void whenIncrementIsCalledThenIncrementBeerStock() throws BeerNotFoundException, BeerStockExceededException {
         //given
         BeerDTO expectedBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
@@ -181,7 +182,7 @@ public class BeerServiceTest {
     }
 
     @Test
-    void whenIncrementIsGreatherThanMaxThenThrowException() {
+    void whenIncrementIsGreaterThanMaxThenThrowException() {
         BeerDTO expectedBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
         Beer expectedBeer = beerMapper.toModel(expectedBeerDTO);
 
@@ -192,7 +193,7 @@ public class BeerServiceTest {
     }
 
     @Test
-    void whenIncrementAfterSumIsGreatherThanMaxThenThrowException() {
+    void whenIncrementAfterSumIsGreaterThanMaxThenThrowException() {
         BeerDTO expectedBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
         Beer expectedBeer = beerMapper.toModel(expectedBeerDTO);
 
