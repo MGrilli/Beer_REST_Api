@@ -48,6 +48,7 @@ public class BeerControllerTest {
     @InjectMocks
     private BeerController beerController;
 
+    //Antes de cada teste, configurando o objeto mockMvc
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(beerController)
@@ -69,12 +70,13 @@ public class BeerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(beerDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name", is(beerDTO.getName())))
-                .andExpect(jsonPath("$.brand", is(beerDTO.getBrand())))
-                .andExpect(jsonPath("$.type", is(beerDTO.getType().toString())));
+                .andExpect(jsonPath("$.name", is(beerDTO.getName()))) //Se retorna nome com sucesso
+                .andExpect(jsonPath("$.brand", is(beerDTO.getBrand()))) //Se retorna marca com sucesso
+                .andExpect(jsonPath("$.type", is(beerDTO.getType().toString()))); //Se retorna tipo da cerveja com sucesso
     }
 
     @Test
+    //Validação de campo obrigatório
     void whenPOSTIsCalledWithoutRequiredFieldThenAnErrorIsReturned() throws Exception {
         // given
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
@@ -88,6 +90,7 @@ public class BeerControllerTest {
     }
 
     @Test
+    //Validar status de retorno e corpo do objeto
     void whenGETIsCalledWithValidNameThenOkStatusIsReturned() throws Exception {
         // given
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
@@ -105,6 +108,7 @@ public class BeerControllerTest {
     }
 
     @Test
+    //Retornando erro ao realizar a validação
     void whenGETIsCalledWithoutRegisteredNameThenNotFoundStatusIsReturned() throws Exception {
         // given
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();

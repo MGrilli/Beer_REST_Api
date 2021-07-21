@@ -42,6 +42,7 @@ public class BeerServiceTest {
 
     private static final long INVALID_BEER_ID = 1L;
 
+    //Criando um Mock da classe
     @Mock
     private BeerRepository beerRepository;
 
@@ -50,10 +51,12 @@ public class BeerServiceTest {
     @InjectMocks
     private BeerService beerService;
 
+    //Padrão em inglês (when... then)
     @Test
     void whenBeerInformedThenItShouldBeCreated() throws BeerAlreadyRegisteredException {
         // given
         BeerDTO expectedBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+        //DTO -> Entity
         Beer expectedSavedBeer = beerMapper.toModel(expectedBeerDTO);
 
         // when
@@ -63,6 +66,7 @@ public class BeerServiceTest {
         //then
         BeerDTO createdBeerDTO = beerService.createBeer(expectedBeerDTO);
 
+        //Matchers do Hamcrest - Teste mais fluente
         assertThat(createdBeerDTO.getId(), is(equalTo(expectedBeerDTO.getId())));
         assertThat(createdBeerDTO.getName(), is(equalTo(expectedBeerDTO.getName())));
         assertThat(createdBeerDTO.getQuantity(), is(equalTo(expectedBeerDTO.getQuantity())));
@@ -81,6 +85,7 @@ public class BeerServiceTest {
         assertThrows(BeerAlreadyRegisteredException.class, () -> beerService.createBeer(expectedBeerDTO));
     }
 
+    //Testando o retorno caso um nome de cerveja válido seja informado
     @Test
     void whenValidBeerNameIsGivenThenReturnABeer() throws BeerNotFoundException {
         // given
@@ -96,6 +101,7 @@ public class BeerServiceTest {
         assertThat(foundBeerDTO, is(equalTo(expectedFoundBeerDTO)));
     }
 
+    //Testando o retorno quando uma cerveja não registrada é informada
     @Test
     void whenNotRegisteredBeerNameIsGivenThenThrowAnException() {
         // given
